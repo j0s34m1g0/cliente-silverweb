@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import WelcomeForm from "./pages/welcome";
+import RegistroForm from './pages/registrarse';
+import DASHBOARD from './pages/dashboard';
 
-function App() {
+import "bootswatch/dist/quartz/bootstrap.min.css";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="container p-4">
+        <Routes>
+          <Route path="/" element={<WelcomeForm/>} />
+          <Route path="/registro" element={<RegistroForm/>} />
+          <Route path="/dashboard" element={<DASHBOARD/>} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
