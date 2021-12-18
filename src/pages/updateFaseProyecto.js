@@ -3,20 +3,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 
-const UPDATE_ESTADO = gql`
-  mutation UpdateUsuario($id: ID, $input: UsuarioInput) {
-    updateUsuario(_id: $id, input: $input) {
+const UPDATE_FASE_PROYECTO = gql`
+mutation Mutation($id: ID, $input: ProyectoInput) {
+    updateProyecto(_id: $id, input: $input) {
       _id
     }
   }
 `;
 
-const UpdateEstado = () => {
+const UpdateFaseProyecto = () => {
 
   const id = localStorage.getItem("idEstado");  
   const navigate = useNavigate();
-  const [estado, setEstado] = useState('');
-  const [updateUsuario] = useMutation(UPDATE_ESTADO);
+  const [fase, setFase] = useState('');
+  const [updateProyecto] = useMutation(UPDATE_FASE_PROYECTO);
 
   return (
     <div className="row">
@@ -26,11 +26,11 @@ const UpdateEstado = () => {
             <form
               onSubmit={async(e) => {
                 e.preventDefault();
-                  await updateUsuario({
+                  await updateProyecto({
                     variables: {
                       id: id,
                       input: {
-                        estado: estado
+                        fase: fase
                       },
                     },
                   });
@@ -44,23 +44,24 @@ const UpdateEstado = () => {
               </div>
               <div className="form-group">
                 <select
-                  value={estado}
+                  value={fase}
                   className="form-select"
                   aria-label="Default select example"
-                  onChange={(e) => setEstado(e.target.value)}>
-                  <option selected>Estado</option>
-                  <option value={"Aprovado"}>Aprovado</option>
+                  onChange={(e) => setFase(e.target.value)}>
+                  <option selected>Fase</option>
+                  <option value={"EnDesarrollo"}>En Desarrollo</option>
+                  <option value={"Terminado"}>Terminado</option>
                 </select>
               </div>
               <div className="form-group container p-1">
                 <button className="btn btn-primary btn-block container p-1">
-                  Actualizar Estado
+                  Actualizar Fase
                 </button>
               </div>
               <div className="form-group container p-1">
                 <Link
                   className="btn btn-primary btn-block container p-1"
-                  to="/listUser1"
+                  to="/listProyect"
                 >
                   Atrás
                 </Link>
@@ -73,4 +74,4 @@ const UpdateEstado = () => {
   );
 };
 
-export default UpdateEstado;
+export default UpdateFaseProyecto;

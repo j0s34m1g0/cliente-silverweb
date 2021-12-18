@@ -3,20 +3,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 
-const UPDATE_ESTADO = gql`
-  mutation UpdateUsuario($id: ID, $input: UsuarioInput) {
-    updateUsuario(_id: $id, input: $input) {
+const UPDATE_ESTADO_PROYECTO = gql`
+mutation Mutation($id: ID, $input: ProyectoInput) {
+    updateProyecto(_id: $id, input: $input) {
       _id
     }
   }
 `;
 
-const UpdateEstado = () => {
+const UpdateEstadoProyecto = () => {
 
   const id = localStorage.getItem("idEstado");  
   const navigate = useNavigate();
   const [estado, setEstado] = useState('');
-  const [updateUsuario] = useMutation(UPDATE_ESTADO);
+  const [updateProyecto] = useMutation(UPDATE_ESTADO_PROYECTO);
 
   return (
     <div className="row">
@@ -26,7 +26,7 @@ const UpdateEstado = () => {
             <form
               onSubmit={async(e) => {
                 e.preventDefault();
-                  await updateUsuario({
+                  await updateProyecto({
                     variables: {
                       id: id,
                       input: {
@@ -60,7 +60,7 @@ const UpdateEstado = () => {
               <div className="form-group container p-1">
                 <Link
                   className="btn btn-primary btn-block container p-1"
-                  to="/listUser1"
+                  to="/listProyect"
                 >
                   Atrás
                 </Link>
@@ -73,4 +73,4 @@ const UpdateEstado = () => {
   );
 };
 
-export default UpdateEstado;
+export default UpdateEstadoProyecto;
