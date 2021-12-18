@@ -12,13 +12,13 @@ const CREATE_PROYECTO = gql`
 `;
 
 const ProyectoForm = () => {
+  const idlider = localStorage.getItem("idlider");
   const [nombre, setNombre] = useState("");
   const [oGenerales, setOgenerales] = useState("");
   const [oEspecificos, setOespecificos] = useState("");
   const [presupuesto, setPresupuesto] = useState("");
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFin, setFechaFin] = useState("");
-  const [idLider, setIdLider] = useState("");
   const [addProyecto] = useMutation(CREATE_PROYECTO);
 
   return (
@@ -38,7 +38,7 @@ const ProyectoForm = () => {
                       presupuesto: presupuesto,
                       fechaInicio: fechaInicio,
                       fechaFin: fechaFin,
-                      idLider: idLider,
+                      idLider: idlider,
                       estado: "Pendiente",
                       fase: "Pendiente",
                     },
@@ -50,7 +50,6 @@ const ProyectoForm = () => {
                 setPresupuesto("");
                 setFechaInicio("");
                 setFechaFin("");
-                setIdLider("");
                 return alert("Registro Exitoso!");
               }}
             >
@@ -110,17 +109,7 @@ const ProyectoForm = () => {
                   value={fechaFin}
                   onChange={(e) => setFechaFin(e.target.value)}
                 />
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Documento de identificacion del Lider"
-                  value={idLider}
-                  onChange={(e) => setIdLider(e.target.value)}
-                />
-              </div>
-              
+              </div>              
               <div className="form-group container p-1">
                 <button className="btn btn-primary btn-block container p-1">
                   Envíar Registro

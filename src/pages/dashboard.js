@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const DASHBOARD = () => {
   const datos = JSON.parse(localStorage.getItem("userdata"));
+  localStorage.setItem("idlider", datos._id);
   const navigate = useNavigate();
 
   if (datos.tipo === "Admin") {
