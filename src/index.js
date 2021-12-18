@@ -8,7 +8,7 @@ import {
 import App from './App';
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000",
+  uri: "https://silverwebciclo4.herokuapp.com/",
   cache: new InMemoryCache(),
 });
 
