@@ -1,24 +1,25 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import {React} from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 
-
-const CREATE_USER = gql`
-  mutation AddUsuario($input: UsuarioInput) {
-    addUsuario(input: $input) {
+const UPDATE_USER = gql`
+  mutation UpdateUsuario($id: ID, $input: UsuarioInput) {
+    updateUsuario(_id: $id, input: $input) {
       _id
     }
   }
 `;
 
-const RegistroForm = () => {
-  const [nombre, setNombre] = useState("");
-  const [identificacion, setIdentificacion] = useState("");
-  const [correo, setCorreo] = useState("");
-  const [password, setPassword] = useState("");
-  const [tipo, setTipo] = useState("");
-  const [addUsuario] = useMutation(CREATE_USER);
+const Update = () => {
+
+  const datos = JSON.parse(localStorage.getItem("userdata"));
+  const navigate = useNavigate();
+  const [nombre, setNombre] = useState(datos.nombre);
+  const [identificacion, setIdentificacion] = useState(datos.identificacion);
+  const [correo, setCorreo] = useState(datos.correo);
+  const [password, setPassword] = useState(datos.password);
+  const [updateUsuario] = useMutation(UPDATE_USER);
 
   return (
     <div className="row">
@@ -26,29 +27,25 @@ const RegistroForm = () => {
         <div className="card">
           <div className="card-body">
             <form
-              onSubmit={(e) => {
+              onSubmit={async(e) => {
                 e.preventDefault();
-                addUsuario({
-                  variables: {
-                    input: {
-                      correo: correo,
-                      identificacion: identificacion,
-                      password: password,
-                      nombre: nombre,
-                      tipo: tipo,
-                      estado: "pendiente",
-                      editBy: "registro inicial",
+                await updateUsuario({
+                    variables: {
+                      id: datos._id,
+                      input: {
+                        correo: correo,
+                        identificacion: identificacion,
+                        nombre: nombre,
+                        password: password,
+                        editBy: datos.correo,
+                        tipo: datos.tipo,
+                        estado: datos.estado
+                      },
                     },
-                  },
-                });
-                setNombre("");
-                setIdentificacion("");
-                setCorreo("");
-                setPassword("");
-                setTipo("");
-                return(
-                    alert('Registro Exitoso!')
-                )
+                  });
+                  
+                  alert('Datos actualizados correctamente!');
+                  navigate('/dashboard');
               }}
             >
               <div className="form-group">
@@ -90,28 +87,15 @@ const RegistroForm = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <div className="form-group">
-                <select
-                  value={tipo}
-                  className="form-select"
-                  aria-label="Default select example"
-                  onChange={(e) => setTipo(e.target.value)}
-                >
-                  <option selected>Tipo de cuenta</option>
-                  <option value={"Admin"}>Admin</option>
-                  <option value={"Lider"}>Lider</option>
-                  <option value={"Estudiante"}>Estudiante</option>
-                </select>
-              </div>
               <div className="form-group container p-1">
                 <button className="btn btn-primary btn-block container p-1">
-                  Envíar Registro
+                  Actualizar Datos
                 </button>
               </div>
               <div className="form-group container p-1">
                 <Link
                   className="btn btn-primary btn-block container p-1"
-                  to="/"
+                  to="/dashboard"
                 >
                   Atrás
                 </Link>
@@ -124,4 +108,4 @@ const RegistroForm = () => {
   );
 };
 
-export default RegistroForm;
+export default Update;

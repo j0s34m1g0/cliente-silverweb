@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 
-
 const FIND_USER = gql`
   query QUsuario {
     qUsuario {
@@ -13,20 +12,18 @@ const FIND_USER = gql`
       nombre
       password
       tipo
+      _id
     }
   }
 `;
 
-
 const WelcomeForm = () => {
-
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
   const [correoi, setCorreoi] = useState("");
   const [passwordi, setPasswordi] = useState("");
   const { loading, error, data } = useQuery(FIND_USER);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :C</p>;
-  
 
   return (
     <div className="row">
@@ -34,21 +31,23 @@ const WelcomeForm = () => {
         <div className="card">
           <div className="card-body">
             <form
-              onSubmit={(e) => {
+              onSubmit={async(e) => {
                 e.preventDefault();
-                const datos = data["qUsuario"];
-                for (var i = 0; i < datos.length; i++) {
-                   if (datos[i].correo === correoi){
-                       if (datos[i].password === passwordi){
-                           console.log('ingreso correcto');
-                           navigate('/dashboard');
-                       }else{alert('Correo o Contraseña incorrecta!')}
-                   }
+                const datos = await data["qUsuario"];
+                for (let i = 0; i < datos.length; i++) {
+                  if (datos[i].correo === correoi) {                    
+                    if (datos[i].password === passwordi) {                   
+                      localStorage.setItem("userdata", JSON.stringify(datos[i]));
+                      navigate("/dashboard");
+                    } else {
+                      alert("Correo o Contraseña incorrecta!");
+                    }
+                  }
                 }
               }}
             >
               <div className="form-group">
-                <h1 class="display-1 container p-1">SILVER-WEB</h1>
+                <h1 className="display-1 container p-1">SILVER-WEB</h1>
               </div>
               <div className="form-group">
                 <input
