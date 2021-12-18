@@ -39,10 +39,13 @@ const WelcomeForm = () => {
                     if (datos[i].password === passwordi) {                   
                       localStorage.setItem("userdata", JSON.stringify(datos[i]));
                       navigate("/dashboard");
+                      break;
                     } else {
                       alert("Correo o Contraseña incorrecta!");
+                      break;
                     }
-                  }
+                  } else if(i===datos.length-1)
+                  alert("Usuario No Registrado!");
                 }
               }}
             >
