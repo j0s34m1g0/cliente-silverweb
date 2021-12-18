@@ -3,10 +3,23 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 
-
 const CREATE_USER = gql`
   mutation AddUsuario($input: UsuarioInput) {
     addUsuario(input: $input) {
+      _id
+    }
+  }
+`;
+
+const FIND_NEWUSER = gql`
+  query QUsuario {
+    qUsuario {
+      correo
+      estado
+      identificacion
+      nombre
+      password
+      tipo
       _id
     }
   }
@@ -18,7 +31,9 @@ const RegistroForm = () => {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
   const [tipo, setTipo] = useState("");
-  const [addUsuario] = useMutation(CREATE_USER);
+  const [addUsuario] = useMutation(CREATE_USER, {
+    refetchQueries:[{query: FIND_NEWUSER}]
+  });
 
   return (
     <div className="row">
