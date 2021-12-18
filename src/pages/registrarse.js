@@ -36,8 +36,8 @@ const RegistroForm = () => {
                       password: password,
                       nombre: nombre,
                       tipo: tipo,
-                      estado: "pendiente",
-                      editBy: "registro inicial"
+                      estado: "Pendiente",
+                      editBy: "Registro inicial"
                     },
                   },
                 });
