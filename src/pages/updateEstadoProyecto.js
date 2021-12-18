@@ -49,7 +49,7 @@ const UpdateEstadoProyecto = () => {
                   aria-label="Default select example"
                   onChange={(e) => setEstado(e.target.value)}>
                   <option selected>Estado</option>
-                  <option value={"Aprovado"}>Aprovado</option>
+                  <option value={"Aprovado"}>Aprobado</option>
                 </select>
               </div>
               <div className="form-group container p-1">
