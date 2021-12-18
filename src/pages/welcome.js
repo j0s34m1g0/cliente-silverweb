@@ -17,7 +17,7 @@ const FIND_USER = gql`
   }
 `;
 
-const WelcomeForm = () => {
+const WelcomeForm = () => { 
   const navigate = useNavigate();
   const [correoi, setCorreoi] = useState("");
   const [passwordi, setPasswordi] = useState("");
