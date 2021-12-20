@@ -19,12 +19,6 @@ const FIND_MISPROYECTOS = gql`
       estado
       fase
     }
-    qAvance {
-      idProyecto
-      descripcion
-      observacion
-      _id
-    }
   }
 `;
 
@@ -38,7 +32,8 @@ const ListProyectStudent = () => {
     if (data["qInscripcion"][i]["idEstudiante"] === datos._id) {
       proyectos.push(data["qInscripcion"][i]["idProyecto"]);
     }
-  }
+  }  
+  localStorage.setItem("idProyectos", JSON.stringify(proyectos));
   const dataProyectos = [];
   for (let j = 0; j < proyectos.length; j++) {
     for (let k = 0; k < data["qProyecto"].length; k++) {

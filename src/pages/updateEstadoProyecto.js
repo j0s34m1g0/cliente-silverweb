@@ -24,9 +24,9 @@ const UpdateEstadoProyecto = () => {
         <div className="card">
           <div className="card-body">
             <form
-              onSubmit={async(e) => {
+              onSubmit={(e) => {
                 e.preventDefault();
-                  await updateProyecto({
+                  updateProyecto({
                     variables: {
                       id: id,
                       input: {
@@ -34,7 +34,7 @@ const UpdateEstadoProyecto = () => {
                       },
                     },
                   });
-                  
+                  console.log(id, estado)
                   alert('Datos actualizados correctamente!');
                   navigate('/dashboard');
               }}

@@ -1,6 +1,6 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
-import OpAdmin from "./OpAdmin";
+import { Link } from "react-router-dom";
 
 const FIND_PROYECTS = gql`
   query QProyecto {
@@ -20,22 +20,16 @@ const FIND_PROYECTS = gql`
 `;
 
 const ListProyect = () => {
-  const datos = JSON.parse(localStorage.getItem("userdata"));
   const { loading, error, data } = useQuery(FIND_PROYECTS);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :C</p>;
-
-  const Opcion = (tipo) => {
-    if (tipo === 'Admin'){
-      return <OpAdmin/>
-    }
-  }
 
   return (
     <div className="row">
       <div className="col-md-6 offset-md-3">
         {data["qProyecto"].map(
-          ({ _id,
+          ({
+            _id,
             estado,
             fase,
             fechaFin,
@@ -44,7 +38,8 @@ const ListProyect = () => {
             nombre,
             oEspecificos,
             oGenerales,
-            presupuesto }) => (
+            presupuesto,
+          }) => (
             <div key={_id} className="card m-4">
               <div className="card-body"></div>
               <h4>{nombre}</h4>
@@ -56,7 +51,14 @@ const ListProyect = () => {
               <p>Objetivos Especificos:{oEspecificos}</p>
               <p>Objetivos Generales{oGenerales}</p>
               <p>Presupuesto: {presupuesto}</p>
-              {Opcion(datos.tipo)}
+              <div className="form-group container p-1">
+                <Link
+                  className="btn btn-primary btn-block container p-1"
+                  to="/"
+                >
+                  Atrás
+                </Link>
+              </div>
             </div>
           )
         )}

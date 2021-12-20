@@ -1,7 +1,7 @@
-import {React} from "react";
+import { React } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 
 const UPDATE_ESTADO = gql`
   mutation UpdateUsuario($id: ID, $input: UsuarioInput) {
@@ -10,13 +10,23 @@ const UPDATE_ESTADO = gql`
     }
   }
 `;
+const FP = gql`
+  query QProyecto {
+    qProyecto {
+      _id
+      nombre
+    }
+  }
+`;
 
 const UpdateEstado = () => {
-
-  const id = localStorage.getItem("idEstado");  
   const navigate = useNavigate();
-  const [estado, setEstado] = useState('');
+  const [proyecto, setProyecto] = useState("");
+  const [estado, setEstado] = useState("");
   const [updateUsuario] = useMutation(UPDATE_ESTADO);
+  const { loading, error, data } = useQuery(FP);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :C</p>;
 
   return (
     <div className="row">
@@ -24,19 +34,19 @@ const UpdateEstado = () => {
         <div className="card">
           <div className="card-body">
             <form
-              onSubmit={async(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                  await updateUsuario({
-                    variables: {
-                      id: id,
-                      input: {
-                        estado: estado
-                      },
+                await updateUsuario({
+                  variables: {
+                    id: proyecto,
+                    input: {
+                      estado: estado,
                     },
-                  });
-                  
-                  alert('Datos actualizados correctamente!');
-                  navigate('/dashboard');
+                  },
+                });
+
+                alert("Datos actualizados correctamente!");
+                navigate("/dashboard");
               }}
             >
               <div className="form-group">
@@ -44,12 +54,27 @@ const UpdateEstado = () => {
               </div>
               <div className="form-group">
                 <select
+                  value={proyecto}
+                  className="form-select"
+                  aria-label="Default select example"
+                  onChange={(e) => setProyecto(e.target.value)}
+                >
+                  <option selected>Proyecto</option>
+                  {data['qProyecto'].map(({ _id, nombre }) => (
+                    <option value={_id}>{nombre}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-group">
+                <select
                   value={estado}
                   className="form-select"
                   aria-label="Default select example"
-                  onChange={(e) => setEstado(e.target.value)}>
+                  onChange={(e) => setEstado(e.target.value)}
+                >
                   <option selected>Estado</option>
-                  <option value={"Aprovado"}>Aprovado</option>
+                  <option value={"Activo"}>Activo</option>
+                  <option value={"Inactivo"}>Inactivo</option>
                 </select>
               </div>
               <div className="form-group container p-1">
