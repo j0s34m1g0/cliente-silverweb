@@ -1,5 +1,6 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
+import { Link } from "react-router-dom";
 
 const FIND_MISPROYECTOS = gql`
   query MiProyecto {
@@ -50,7 +51,8 @@ const ListProyectStudent = () => {
     <div className="row">
       <div className="col-md-6 offset-md-3">
         {dataProyectos.map(
-          ({ _id,
+          ({
+            _id,
             estado,
             fase,
             fechaFin,
@@ -59,18 +61,23 @@ const ListProyectStudent = () => {
             nombre,
             oEspecificos,
             oGenerales,
-            presupuesto }) => (
+            presupuesto,
+          }) => (
             <div key={_id} className="card m-4">
-              <div className="card-body"></div>
-              <h4>{nombre}</h4>
-              <p>Objetivos Generales: {oGenerales}</p>
-              <p>Objetivos Especificos: {oEspecificos}</p>
-              <p>Presupuesto: {presupuesto}</p>
-              <p>Estado: {estado}</p>
-              <p>Fase: {fase}</p>
-              <p>FechaFin: {fechaFin}</p>
-              <p>FechaInicio: {fechaInicio}</p>
-              <p>Lider: {idLider}</p>
+              <div className="card-body">
+                <h4>{nombre}</h4>
+                <p>Objetivos Generales: {oGenerales}</p>
+                <p>Objetivos Especificos: {oEspecificos}</p>
+                <p>Presupuesto: {presupuesto}</p>
+                <p>Estado: {estado}</p>
+                <p>Fase: {fase}</p>
+                <p>FechaFin: {fechaFin}</p>
+                <p>FechaInicio: {fechaInicio}</p>
+                <p>Lider: {idLider}</p>
+              </div>
+              <Link className="btn btn-primary btn-block container p-1" to="/dashboard">
+                Atrás
+              </Link>
             </div>
           )
         )}
