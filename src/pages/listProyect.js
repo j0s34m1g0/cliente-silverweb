@@ -1,6 +1,6 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import OpAdmin from "./OpAdmin";
 
 const FIND_PROYECTS = gql`
   query QProyecto {
@@ -20,10 +20,16 @@ const FIND_PROYECTS = gql`
 `;
 
 const ListProyect = () => {
-  const navigate = useNavigate();
+  const datos = JSON.parse(localStorage.getItem("userdata"));
   const { loading, error, data } = useQuery(FIND_PROYECTS);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :C</p>;
+
+  const Opcion = (tipo) => {
+    if (tipo === 'Admin'){
+      return <OpAdmin/>
+    }
+  }
 
   return (
     <div className="row">
@@ -50,52 +56,7 @@ const ListProyect = () => {
               <p>Objetivos Especificos:{oEspecificos}</p>
               <p>Objetivos Generales{oGenerales}</p>
               <p>Presupuesto: {presupuesto}</p>
-              <div className="row">
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Basic mixed styles example"
-                >
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={() => {
-                      window.location.reload();
-                    }}
-                  >
-                    Refresh
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-warning"
-                    onClick={() => {
-                      localStorage.setItem("idEstado", _id);
-                      navigate("/updateEstadoProyecto");
-                    }}
-                  >
-                    Cambiar Estado
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-warning"
-                    onClick={() => {
-                      localStorage.setItem("idEstado", _id);
-                      navigate("/updateFaseProyecto");
-                    }}
-                  >
-                    Cambiar Fase
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-success"
-                    onClick={() => {
-                      navigate("/dashboard");
-                    }}
-                  >
-                    Atrás
-                  </button>
-                </div>
-              </div>
+              {Opcion(datos.tipo)}
             </div>
           )
         )}

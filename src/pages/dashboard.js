@@ -102,8 +102,8 @@ const DASHBOARD = () => {
                   </Link>
                 </div>
                 <div className="card-body">
-                  <Link to="/listProyectLider" className="btn btn-primary">
-                    Mis proyectos
+                  <Link to="/listProyect" className="btn btn-primary">
+                    Gestionar proyectos
                   </Link>
                 </div>
                 <div className="card-body">
@@ -156,6 +156,16 @@ const DASHBOARD = () => {
                   </Link>
                 </div>
                 <div className="card-body">
+                  <Link to="/inscripcion" className="btn btn-primary">
+                     Inscripcion a Proyectos
+                  </Link>
+                </div>
+                <div className="card-body">
+                  <Link to="/listProyectStudent" className="btn btn-primary">
+                     Mis Proyectos
+                  </Link>
+                </div>
+                <div className="card-body">
                   <button
                     className="btn btn-danger btn-block container p-1"
                     onClick={() => {
@@ -165,6 +175,7 @@ const DASHBOARD = () => {
                   >
                     Cerrar Sesión
                   </button>
+                  
                 </div>
               </div>
             </div>
