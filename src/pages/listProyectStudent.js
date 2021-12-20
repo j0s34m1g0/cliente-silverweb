@@ -32,17 +32,51 @@ const ListProyectStudent = () => {
   const { loading, error, data } = useQuery(FIND_MISPROYECTOS);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :C</p>;
-  
-  for (let i = 0; i < data['qInscripcion'].length; i++) {
-    if (data['qInscripcion'][i]['idEstudiante'] === datos._id){
-      const idproyecto = data['qInscripcion'][i]['idProyecto']
+  const proyectos = [];
+  for (let i = 0; i < data["qInscripcion"].length; i++) {
+    if (data["qInscripcion"][i]["idEstudiante"] === datos._id) {
+      proyectos.push(data["qInscripcion"][i]["idProyecto"]);
     }
   }
-
-
-
-
-  return <div>Holi</div>;
+  const dataProyectos = [];
+  for (let j = 0; j < proyectos.length; j++) {
+    for (let k = 0; k < data["qProyecto"].length; k++) {
+      if (data["qProyecto"][k]["_id"] === proyectos[j]) {
+        dataProyectos.push(data["qProyecto"][k]);
+      }
+    }
+  }
+  return (
+    <div className="row">
+      <div className="col-md-6 offset-md-3">
+        {dataProyectos.map(
+          ({ _id,
+            estado,
+            fase,
+            fechaFin,
+            fechaInicio,
+            idLider,
+            nombre,
+            oEspecificos,
+            oGenerales,
+            presupuesto }) => (
+            <div key={_id} className="card m-4">
+              <div className="card-body"></div>
+              <h4>{nombre}</h4>
+              <p>Objetivos Generales: {oGenerales}</p>
+              <p>Objetivos Especificos: {oEspecificos}</p>
+              <p>Presupuesto: {presupuesto}</p>
+              <p>Estado: {estado}</p>
+              <p>Fase: {fase}</p>
+              <p>FechaFin: {fechaFin}</p>
+              <p>FechaInicio: {fechaInicio}</p>
+              <p>Lider: {idLider}</p>
+            </div>
+          )
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default ListProyectStudent;
