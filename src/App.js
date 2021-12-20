@@ -6,12 +6,11 @@ import Admin from "./pages/admin";
 import Update from "./pages/update";
 import ListUser1 from './pages/listUser1';
 import UpdateEstado from './pages/updateEstado';
-import UpdateEstadoProyecto from "./pages/updateEstadoProyecto";
-import UpdateFaseProyecto from "./pages/updateFaseProyecto";
 import ListProyect from "./pages/listProyect";
 import ProyectoForm from "./pages/crearProyecto";
 import Inscripcion from "./pages/inscripcion";
 import ListProyectStudent from "./pages/listProyectStudent";
+import UpdateFase from "./pages/updateFase";
 
 import "bootswatch/dist/quartz/bootstrap.min.css";
 
@@ -27,12 +26,11 @@ const App = () => {
           <Route path="/update" element={<Update/>} />
           <Route path="/listUser1" element={<ListUser1/>} />
           <Route path="/updateEstado" element={<UpdateEstado/>} />
-          <Route path="/updateEstadoProyecto" element={<UpdateEstadoProyecto/>} />
-          <Route path="/updateFaseProyecto" element={<UpdateFaseProyecto/>} />
           <Route path="/listProyect" element={<ListProyect/>} />
           <Route path="/crearProyecto" element={<ProyectoForm/>} />
           <Route path="/inscripcion" element={<Inscripcion/>} />
           <Route path="/listProyectStudent" element={<ListProyectStudent/>} />
+          <Route path="/updateFase" element={<UpdateFase/>} />
         </Routes>
       </div>
     </BrowserRouter>

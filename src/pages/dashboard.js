@@ -45,7 +45,12 @@ const DASHBOARD = () => {
                 </div>
                 <div className="card-body">
                   <Link to="/updateEstado" className="btn btn-primary">
-                    Cambiar "Fase" de Proyecto
+                    Cambiar "Estado" del Proyecto
+                  </Link>
+                </div>
+                <div className="card-body">
+                  <Link to="/updateFase" className="btn btn-primary">
+                    Cambiar "Fase" del Proyecto
                   </Link>
                 </div>
                 <div className="card-body">
@@ -104,11 +109,6 @@ const DASHBOARD = () => {
                 <div className="card-body">
                   <Link to="/crearProyecto" className="btn btn-primary">
                     Crear Proyecto
-                  </Link>
-                </div>
-                <div className="card-body">
-                  <Link to="/listProyect" className="btn btn-primary">
-                    Gestionar proyectos
                   </Link>
                 </div>
                 <div className="card-body">

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 
-const UPDATE_ESTADO = gql`
+const UPDATE_FASE = gql`
   mutation UpdateProyecto($id: ID, $input: ProyectoInput) {
     updateProyecto(_id: $id, input: $input) {
       _id
@@ -19,11 +19,11 @@ const FP = gql`
   }
 `;
 
-const UpdateEstado = () => {
+const UpdateFase = () => {
   const navigate = useNavigate();
   const [proyecto, setProyecto] = useState("");
-  const [estado, setEstado] = useState("");
-  const [updateProyecto] = useMutation(UPDATE_ESTADO);
+  const [fase, setFase] = useState("");
+  const [updateProyecto] = useMutation(UPDATE_FASE);
   const { loading, error, data } = useQuery(FP);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :C</p>;
@@ -40,11 +40,10 @@ const UpdateEstado = () => {
                   variables: {
                     id: proyecto,
                     input: {
-                      estado: estado,
+                      fase: fase,
                     },
                   },
                 });
-                console.log(proyecto, estado);
                 alert("Datos actualizados correctamente!");
                 navigate("/dashboard");
               }}
@@ -67,19 +66,19 @@ const UpdateEstado = () => {
               </div>
               <div className="form-group">
                 <select
-                  value={estado}
+                  value={fase}
                   className="form-select"
                   aria-label="Default select example"
-                  onChange={(e) => setEstado(e.target.value)}
+                  onChange={(e) => setFase(e.target.value)}
                 >
-                  <option selected>Estado</option>
-                  <option value={"Activo"}>Activo</option>
-                  <option value={"Inactivo"}>Inactivo</option>
+                  <option selected>Fase</option>
+                  <option value={"EnProceso"}>En proceso</option>
+                  <option value={"Finalizado"}>Finalizado</option>
                 </select>
               </div>
               <div className="form-group container p-1">
                 <button className="btn btn-primary btn-block container p-1">
-                  Actualizar Estado
+                  Actualizar Fase
                 </button>
               </div>
               <div className="form-group container p-1">
@@ -98,4 +97,4 @@ const UpdateEstado = () => {
   );
 };
 
-export default UpdateEstado;
+export default UpdateFase;

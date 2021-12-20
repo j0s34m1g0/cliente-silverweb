@@ -54,7 +54,7 @@ const ListProyect = () => {
               <div className="form-group container p-1">
                 <Link
                   className="btn btn-primary btn-block container p-1"
-                  to="/"
+                  to="/dashboard"
                 >
                   Atrás
                 </Link>
