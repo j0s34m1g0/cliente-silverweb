@@ -176,6 +176,11 @@ const DASHBOARD = () => {
                   </Link>
                 </div>
                 <div className="card-body">
+                  <Link to="/listAvances" className="btn btn-primary">
+                     Mis Avances
+                  </Link>
+                </div>
+                <div className="card-body">
                   <button
                     className="btn btn-danger btn-block container p-1"
                     onClick={() => {
