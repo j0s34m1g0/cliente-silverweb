@@ -11,6 +11,7 @@ import ProyectoForm from "./pages/crearProyecto";
 import Inscripcion from "./pages/inscripcion";
 import ListProyectStudent from "./pages/listProyectStudent";
 import UpdateFase from "./pages/updateFase";
+import AddAvance from "./pages/addAvance";
 
 import "bootswatch/dist/quartz/bootstrap.min.css";
 
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/inscripcion" element={<Inscripcion/>} />
           <Route path="/listProyectStudent" element={<ListProyectStudent/>} />
           <Route path="/updateFase" element={<UpdateFase/>} />
+          <Route path="/addAvance" element={<AddAvance/>} />
         </Routes>
       </div>
     </BrowserRouter>

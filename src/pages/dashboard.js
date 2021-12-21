@@ -171,7 +171,7 @@ const DASHBOARD = () => {
                   </Link>
                 </div>
                 <div className="card-body">
-                  <Link to="/updateAvance" className="btn btn-primary">
+                  <Link to="/addAvance" className="btn btn-primary">
                      Realizar Avance de Proyecto
                   </Link>
                 </div>
